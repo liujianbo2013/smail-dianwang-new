@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- 声明文档字符编码为UTF-8，支持中文显示 -->
+    <meta charset="UTF-8">
+    <!-- 移动端适配配置：宽度等于设备宽度，初始缩放1倍，禁止用户手动缩放 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- 网页标题，显示在浏览器标签栏 -->
+    <title>Neon Grid: Drag & Drop</title>
+    <!-- 引入外部CSS样式文件，控制页面外观 -->
+    <!-- 基础样式：全局重置、字体、基础设置 -->
+    <link rel="stylesheet" href="css/base.css">
+    <!-- 面板样式：顶部面板、底部面板、统计栏、工具栏 -->
+    <link rel="stylesheet" href="css/panels.css">
+    <!-- 按钮样式：建筑按钮、视图控制按钮、游戏结束按钮 -->
+    <link rel="stylesheet" href="css/buttons.css">
+    <!-- 游戏样式：游戏容器、画布、警报层、游戏结束界面 -->
+    <link rel="stylesheet" href="css/game.css">
+    <!-- 响应式样式：移动端适配 -->
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <!-- 顶部面板：显示系统状态、游戏核心数值 -->
+    <header id="top-panel">
+        <!-- 系统提示文字：显示游戏当前操作状态 -->
+        <div id="system-msg">系统就绪 - 点击建筑按钮放置</div>
+        <!-- 数值统计组容器：包裹所有游戏数据展示项 -->
+        <div class="stats-group">
+            <!-- 单个统计项：资金展示 -->
+            <div class="stat-item">
+                <span class="stat-label">资金</span>
+                <span class="stat-value" id="money-display" style="color: #ffd700;">$200</span>
+            </div>
+            <!-- 单个统计项：每秒收入展示 -->
+            <div class="stat-item">
+                <span class="stat-label">收入</span>
+                <span class="stat-value" id="income-display">+$0/s</span>
+            </div>
+            <!-- 单个统计项：电网覆盖百分比展示 -->
+            <div class="stat-item">
+                <span class="stat-label">覆盖</span>
+                <span class="stat-value" id="coverage-display">0%</span>
+            </div>
+            <!-- 单个统计项：人口数量展示 -->
+            <div class="stat-item">
+                <span class="stat-label">人口</span>
+                <span class="stat-value" id="scale-display">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 游戏主容器：包裹所有游戏核心画面和功能层 -->
+    <div id="game-container">
+        <!-- 警报遮罩层：游戏触发警报/过载时显示的红色覆盖层 -->
+        <div id="alarm-overlay"></div>
+
+        <!-- 视图控制按钮组：控制游戏画面缩放、全屏等操作 -->
+        <div class="view-controls">
+            <!-- 全屏切换按钮 -->
+            <button class="view-btn" onclick="toggleFullscreen()" title="全屏" id="fullscreen-btn">⛶</button>
+            <!-- 画面放大按钮 -->
+            <button class="view-btn" onclick="zoomIn()" title="放大">+</button>
+            <!-- 画面缩小按钮 -->
+            <button class="view-btn" onclick="zoomOut()" title="缩小">-</button>
+            <!-- 重置视图按钮 -->
+            <button class="view-btn" onclick="resetView()" title="重置视图">⊙</button>
+        </div>
+
+        <!-- 帮助提示框：鼠标悬浮/操作时显示的操作指引 -->
+        <div id="help-tip" class="help-tip"></div>
+
+        <!-- 游戏结束界面：游戏失败/系统故障时显示 -->
+        <div id="game-over">
+            <!-- 游戏结束标题 -->
+            <h2 id="game-over-title">系统故障 | SYSTEM FAILURE</h2>
+            <!-- 游戏结束原因说明 -->
+            <p id="game-over-reason" style="color: #88aaff; text-align: center; padding: 0 20px;">电网过载检测。</p>
+            <!-- 回放画面容器：展示游戏失败前的录像 -->
+            <div id="replay-container" style="margin: 20px 0; border: 2px solid #334444; background: #000; position: relative;">
+                <div style="position: absolute; top: 10px; left: 10px; color: #00ffff; font-size: 12px; background: rgba(0,0,0,0.5); padding: 2px 5px;">时间回放</div>
+                <!-- 回放画布：渲染游戏录像画面 -->
+                <canvas id="replayCanvas" width="400" height="250"></canvas>
+            </div>
+            <!-- 回放进度条：控制录像播放进度 -->
+            <div class="slider-container" style="width: 400px; margin: 10px 0; display: flex; align-items: center; gap: 10px;">
+                <input type="range" id="replay-slider" min="0" max="100" value="0" style="-webkit-appearance: none; width: 100%; height: 6px; background: #334455; outline: none; border-radius: 3px;">
+            </div>
+            <!-- 重启游戏按钮：重新开始游戏 -->
+            <button class="restart-btn" onclick="restartGame()">重启系统</button>
+        </div>
+
+        <!-- 游戏主画布：渲染所有游戏场景、建筑、特效 -->
+        <canvas id="gameCanvas"></canvas>
+    </div>
+
+    <!-- 底部面板：建筑工具栏、游戏速度控制 -->
+    <footer id="bottom-panel">
+        <!-- 建筑工具栏：可放置的所有建筑按钮 -->
+        <div class="buildings-toolbar">
+            <!-- 电厂建筑按钮：点击进入放置模式，标注价格 -->
+            <div class="building-btn" data-type="plant" onclick="enterPlacementMode('plant')">
+                <span class="icon">🏭</span>
+                <span class="label">电厂</span>
+                <span class="price">$1500</span>
+            </div>
+            <!-- 核电站建筑按钮：点击进入放置模式，标注价格 -->
+            <div class="building-btn nuclear" data-type="nuclear" onclick="enterPlacementMode('nuclear')">
+                <span class="icon">☢️</span>
+                <span class="label">核电站</span>
+                <span class="price">$6000</span>
+            </div>
+            <!-- 电池建筑按钮：点击进入放置模式，标注价格 -->
+            <div class="building-btn battery" data-type="battery" onclick="enterPlacementMode('battery')">
+                <span class="icon">🔋</span>
+                <span class="label">电池</span>
+                <span class="price">$800</span>
+            </div>
+        </div>
+        <!-- 游戏速度控制组：控制游戏运行速度 -->
+        <div class="speed-controls">
+            <!-- 暂停游戏按钮 -->
+            <button class="speed-btn" onclick="setTimeScale(0)">⏸</button>
+            <!-- 0.5倍速按钮 -->
+            <button class="speed-btn" onclick="setTimeScale(0.5)">.5x</button>
+            <!-- 1倍速按钮（默认选中） -->
+            <button class="speed-btn active" onclick="setTimeScale(1)">1x</button>
+            <!-- 2倍速按钮 -->
+            <button class="speed-btn" onclick="setTimeScale(2)">2x</button>
+        </div>
+    </footer>
+
+    <!-- 引入核心JS脚本：实现游戏所有逻辑、交互、渲染 -->
+    <script src="app.js"></script>
+</body>
+</html>

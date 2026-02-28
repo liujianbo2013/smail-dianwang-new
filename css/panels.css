@@ -1,0 +1,211 @@
+/* -------------------------- 顶部面板样式 -------------------------- */
+#top-panel {
+    /* 渐变背景：深色到纯黑 */
+    background: linear-gradient(to bottom, #0a0a12, #05050a);
+    /* 底部青色边框 */
+    border-bottom: 2px solid #00ffff;
+    /* 弹性布局，垂直居中 */
+    display: flex;
+    align-items: center;
+    /* 内边距 */
+    padding: 8px 15px;
+    /* 层级置顶，防止被其他元素遮挡 */
+    z-index: 20;
+    /* 底部阴影效果 */
+    box-shadow: 0 2px 20px rgba(0,255,255,0.2);
+    /* 最小高度 */
+    min-height: 50px;
+    /* 固定高度，不被弹性布局压缩 */
+    flex-shrink: 0;
+}
+
+/* 系统消息展示框 */
+#system-msg {
+    /* 自动占满剩余宽度 */
+    flex: 1;
+    /* 半透明深色背景 */
+    background: rgba(0, 20, 20, 0.6);
+    /* 半透明青色边框 */
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    /* 文字青色 */
+    color: #00ffff;
+    /* 固定高度 */
+    height: 34px;
+    /* 文字垂直居中 */
+    display: flex;
+    align-items: center;
+    /* 左右内边距 */
+    padding: 0 12px;
+    /* 文字大小 */
+    font-size: 13px;
+    /* 圆角胶囊样式 */
+    border-radius: 17px;
+    /* 溢出内容隐藏 */
+    overflow: hidden;
+    /* 不换行 */
+    white-space: nowrap;
+    /* 溢出文字显示省略号 */
+    text-overflow: ellipsis;
+    /* 内阴影效果 */
+    box-shadow: inset 0 0 20px rgba(0,255,255,0.1);
+    /* 过渡动画 */
+    transition: all 0.3s ease;
+    /* 右侧外边距 */
+    margin-right: 15px;
+}
+
+/* 系统消息-高亮状态 */
+#system-msg.highlight {
+    color: #fff;
+    background: rgba(0, 255, 255, 0.2);
+    border-color: #00ffff;
+    text-shadow: 0 0 5px #00ffff;
+}
+
+/* 系统消息-警告状态（红色） */
+#system-msg.warning {
+    color: #ff6666;
+    border-color: #ff3333;
+    background: rgba(255, 0, 0, 0.2);
+}
+
+/* 系统消息-成功状态（绿色） */
+#system-msg.success {
+    color: #00ff88;
+    border-color: #00ff88;
+    background: rgba(0, 255, 136, 0.2);
+}
+
+/* 数据统计组容器 */
+.stats-group {
+    /* 弹性布局 */
+    display: flex;
+    /* 子元素间距 */
+    gap: 12px;
+}
+
+/* 单个统计项 */
+.stat-item {
+    display: flex;
+    /* 垂直排列 */
+    flex-direction: column;
+    /* 水平居中 */
+    align-items: center;
+    /* 半透明背景 */
+    background: rgba(0, 50, 60, 0.3);
+    /* 内边距 */
+    padding: 3px 10px;
+    /* 圆角 */
+    border-radius: 10px;
+    /* 半透明边框 */
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    /* 过渡动画 */
+    transition: all 0.3s ease;
+}
+
+/* 统计项标签（文字说明） */
+.stat-label {
+    font-size: 9px;
+    color: #6688aa;
+    /* 大写 */
+    text-transform: uppercase;
+    /* 字间距 */
+    letter-spacing: 1px;
+}
+
+/* 统计项数值 */
+.stat-value {
+    font-size: 14px;
+    font-weight: bold;
+    /* 顶部外边距 */
+    margin-top: 2px;
+}
+
+/* -------------------------- 底部面板 -------------------------- */
+#bottom-panel {
+    /* 渐变背景 */
+    background: linear-gradient(to top, #0a0a12, #05050a);
+    /* 顶部半透明青色边框 */
+    border-top: 2px solid rgba(0, 255, 255, 0.3);
+    padding: 10px;
+    /* 左右分布 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 20;
+    flex-shrink: 0;
+    box-shadow: 0 -2px 20px rgba(0,0,0,0.5);
+}
+
+/* 建筑工具栏容器 */
+.buildings-toolbar {
+    display: flex;
+    /* 按钮间距 */
+    gap: 10px;
+    align-items: center;
+    /* 占满剩余宽度 */
+    flex: 1;
+}
+
+/* 游戏速度控制栏 */
+.speed-controls {
+    display: flex;
+    gap: 4px;
+    background: rgba(0, 20, 30, 0.5);
+    padding: 4px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+/* 速度按钮 */
+.speed-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    color: #6699aa;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 15px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* 速度按钮悬浮 */
+.speed-btn:hover {
+    background: rgba(0, 255, 255, 0.1);
+    color: #00ffff;
+}
+
+/* 速度按钮激活 */
+.speed-btn.active {
+    background: #00ffff;
+    color: #000;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+}
+
+/* 帮助提示文字 */
+.help-tip {
+    position: absolute;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid rgba(0, 255, 255, 0.5);
+    color: #00ffff;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    /* 默认隐藏 */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 25;
+    text-align: center;
+    /* 最大宽度 */
+    max-width: 300px;
+}
+
+/* 帮助提示显示状态 */
+.help-tip.show {
+    opacity: 1;
+}

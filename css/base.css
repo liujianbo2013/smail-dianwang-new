@@ -1,0 +1,50 @@
+/* 引入谷歌等宽字体 Share Tech Mono */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+/* 全局样式重置与基础设置 */
+* {
+    /* 盒模型统一使用 border-box，边框和内边距不撑开元素尺寸 */
+    box-sizing: border-box;
+    /* 移动端移除点击元素时的高亮背景 */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* 页面主体样式 */
+body {
+    /* 清除默认外边距 */
+    margin: 0;
+    /* 清除默认内边距 */
+    padding: 0;
+    /* 宽度铺满屏幕 */
+    width: 100%;
+    /* 高度铺满视口 */
+    height: 100vh;
+    /* 隐藏页面滚动条 */
+    overflow: hidden;
+    /* 背景色纯黑 */
+    background-color: #000;
+    /* 设置字体 */
+    font-family: 'Share Tech Mono', monospace;
+    /* 文字颜色白色 */
+    color: #fff;
+    /* 禁止用户选中页面文字 */
+    user-select: none;
+    -webkit-user-select: none;
+    /* 弹性布局，垂直排列子元素 */
+    display: flex;
+    flex-direction: column;
+}
+
+/* 全屏模式下的背景色（兼容所有浏览器） */
+:fullscreen {
+    background-color: #000;
+}
+:-webkit-full-screen {
+    background-color: #000;
+}
+:-moz-full-screen {
+    background-color: #000;
+}
+:-ms-fullscreen {
+    background-color: #000;
+}

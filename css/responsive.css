@@ -1,0 +1,66 @@
+/* -------------------------- 移动端响应式适配 -------------------------- */
+@media (max-width: 768px) {
+    /* 顶部面板缩小 */
+    #top-panel {
+        padding: 5px 10px;
+        min-height: 45px;
+    }
+
+    /* 系统消息缩小 */
+    #system-msg {
+        font-size: 11px;
+        height: 30px;
+        margin-right: 10px;
+    }
+
+    /* 统计栏间距缩小 */
+    .stats-group {
+        gap: 8px;
+    }
+    .stat-item {
+        padding: 2px 8px;
+    }
+    .stat-label {
+        font-size: 8px;
+    }
+    .stat-value {
+        font-size: 12px;
+    }
+
+    /* 底部面板缩小 */
+    #bottom-panel {
+        padding: 8px;
+    }
+
+    /* 建筑按钮尺寸缩小 */
+    .building-btn {
+        min-width: 65px;
+        padding: 8px 10px;
+    }
+    .building-btn span.icon {
+        font-size: 20px;
+    }
+    .building-btn span.label {
+        font-size: 9px;
+    }
+    .building-btn span.price {
+        font-size: 8px;
+    }
+
+    /* 视图按钮缩小 */
+    .view-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+
+    /* 建筑工具栏支持横向滚动 */
+    .buildings-toolbar {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    /* 隐藏滚动条 */
+    .buildings-toolbar::-webkit-scrollbar {
+        display: none;
+    }
+}
