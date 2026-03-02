@@ -125,6 +125,7 @@ function setTimeScale(scale) {
     else if (scale === 0.5) speedBtns[1].classList.add('active');
     else if (scale === 1.0) speedBtns[2].classList.add('active');
     else if (scale === 2.0) speedBtns[3].classList.add('active');
+    else if (scale === 3.0) speedBtns[4].classList.add('active');
 
     // 显示流速提示
     showHelpTip(`速度: ${scale === 0 ? '暂停' : scale + 'x'}`);
