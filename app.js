@@ -30,7 +30,7 @@ loadScript('js/rendering/loop.js');         // 渲染循环入口
 loadScript('js/rendering/draw-main.js');    // 主绘制函数
 loadScript('js/rendering/draw-wires.js');   // 电线绘制系统
 loadScript('js/rendering/draw-entities.js');// 实体绘制系统
-// 逻辑更新：游戏帧更新、物理、逻辑运算
+// 逻辑更新：游戏帧更新、逻辑运算
 loadScript('js/update.js');
 
 // ------------------------------

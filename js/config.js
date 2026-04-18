@@ -117,7 +117,7 @@ const CONFIG = {
         powerOn: '#00ffff',
         // 电力断开颜色
         powerOff: '#333344',
-        // 火力发电厂标识色
+        // 发电厂标识色
         powerSource: '#ffffff',
         // 核电站标识色
         nuclearSource: '#00ff66',
